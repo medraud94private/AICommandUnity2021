@@ -23,9 +23,10 @@ static class OpenAIUtil
     {
         var settings = AICommandSettings.instance;
 
-        // POST
-        using var post = UnityWebRequest.Post
-          (OpenAI.Api.Url, CreateChatRequestBody(prompt), "application/json");
+        // POST - Unity 2021 or older Fix
+         using var post = UnityWebRequest.Post
+              (OpenAI.Api.Url, CreateChatRequestBody(prompt));
+         post.SetRequestHeader("Content-Type", "application/json");
 
         // Request timeout setting
         post.timeout = settings.timeout;
